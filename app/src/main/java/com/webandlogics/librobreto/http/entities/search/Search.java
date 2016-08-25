@@ -1,10 +1,13 @@
 package com.webandlogics.librobreto.http.entities.search;
 
+import com.webandlogics.librobreto.http.entities.Book;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by alvaro on 25/08/16.
@@ -33,6 +36,14 @@ public class Search {
 
     public void setResults(List<Work> results) {
         this.results = results;
+    }
+
+    public List<Book> getBooks(){
+        Vector<Book> books = new Vector<>();
+        for (Work work: getResults()){
+            books.add(work.getBestBook());
+        }
+        return books;
     }
 
     public int getResultsEnd() {
