@@ -1,5 +1,7 @@
 package com.webandlogics.librobreto.http.entities.search;
 
+import com.webandlogics.librobreto.http.entities.Book;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -8,10 +10,10 @@ import org.simpleframework.xml.Root;
  * Actually it's just a Search Result
  */
 
-@Root(strict=false)
+@Root(name="work", strict=false)
 public class Work {
 
-    @Element(name="id")
+    @Element
     private long id;
 
     @Element(name="books_count")
@@ -19,4 +21,39 @@ public class Work {
 
     @Element(name="ratings_count")
     private int rating_count;
+
+    @Element(name="best_book")
+    private Book bestBook;
+
+    public Book getBestBook() {
+        return bestBook;
+    }
+
+    public void setBestBook(Book bestBook) {
+        this.bestBook = bestBook;
+    }
+
+    public int getBooksCount() {
+        return booksCount;
+    }
+
+    public void setBooksCount(int booksCount) {
+        this.booksCount = booksCount;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getRating_count() {
+        return rating_count;
+    }
+
+    public void setRating_count(int rating_count) {
+        this.rating_count = rating_count;
+    }
 }

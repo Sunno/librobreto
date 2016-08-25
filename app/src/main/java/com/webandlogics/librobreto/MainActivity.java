@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.webandlogics.librobreto.http.GoodReadsAPI;
 import com.webandlogics.librobreto.http.entities.search.SearchResponse;
+import com.webandlogics.librobreto.http.entities.search.Work;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
         searchResponseCall.enqueue(new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
-                // TODO process results
-                responseText.setText(response.toString());
+                String results = "";
+                for (Work work: response.body().getSearch().getResults()){
+                    // THIS LOOP WILL CHANGE FOR AN ADAPTER
+                    results += " || " + work.getBestBook().getTitle();
+                }
+                responseText.setText(results.length() > 0 ? results.substring(4) : "No results");
             }
 
             @Override

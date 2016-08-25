@@ -13,7 +13,7 @@ import java.util.List;
 @Root(strict=false)
 public class Search {
     @ElementList
-    public List<Work> results;
+    private List<Work> results;
 
     @Element(name="results-start")
     private int resultsStart;
