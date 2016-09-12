@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Real Shelf</string>
+    <string name="app_name">Librobreto</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
