@@ -2,7 +2,9 @@ package com.webandlogics.librobreto.http;
 
 import com.webandlogics.librobreto.BuildConfig;
 import com.webandlogics.librobreto.Settings;
+import com.webandlogics.librobreto.http.entities.reviews.ReviewsResponse;
 import com.webandlogics.librobreto.http.entities.search.SearchResponse;
+import com.webandlogics.librobreto.http.entities.user.AuthUserResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -22,12 +24,12 @@ public interface GoodReadsAPI {
     Call<SearchResponse> searchBook(@Query("q") String q);
 
     @GET("/api/auth_user")
-    Call<ResponseBody> getUser();
+    Call<AuthUserResponse> getUser();
 
     @GET("/shelf/list.xml")
     Call<ResponseBody> getShelves(@Query("user_id") String userId);
 
-    @GET("/review/list/{user_id}.xml")
-    Call<ResponseBody> getBooksFromShelf(@Path("user_id") String userId,
-                                           @Query("shelf") String shelf);
+    @GET("/review/list/{user_id}.xml?key=" + Q3M_P6_LBIRFX_CFB_XDL4W)
+    Call<ReviewsResponse> getBooksFromShelf(@Path("user_id") String userId,
+                                            @Query("shelf") String shelf);
 }

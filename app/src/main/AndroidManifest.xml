@@ -38,7 +38,7 @@
                 <data
                     android:host="librobreto"
                     android:scheme="librobreto"
-                    android:path="/login" />
+                    android:pathPrefix="/login" />
             </intent-filter>
         </activity>
     </application>

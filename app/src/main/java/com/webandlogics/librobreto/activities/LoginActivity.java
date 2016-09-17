@@ -14,20 +14,15 @@ import android.widget.Button;
 import com.webandlogics.librobreto.MainActivity;
 import com.webandlogics.librobreto.R;
 import com.webandlogics.librobreto.Settings;
+import com.webandlogics.librobreto.http.GoodReadsAPI;
 import com.webandlogics.librobreto.http.ServiceGenerator;
+import com.webandlogics.librobreto.http.callbacks.AuthUserCallback;
+import com.webandlogics.librobreto.http.entities.user.AuthUserResponse;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.OAuthProvider;
-import oauth.signpost.basic.DefaultOAuthConsumer;
-import oauth.signpost.basic.DefaultOAuthProvider;
-import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
-import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
+import retrofit2.Call;
 
 /**
  * Created by alvaro on 12/09/16.
@@ -94,11 +89,13 @@ public class LoginActivity extends Activity {
                     @Override
                     protected Object doInBackground(Object... objects) {
                         try {
-                            ServiceGenerator.provider.retrieveAccessToken(ServiceGenerator.consumer, ServiceGenerator.consumer.getToken());
-                            SharedPreferences.Editor editor = getSharedPreferences(Settings.SHARED_PREFERENCES, MODE_PRIVATE).edit();
-                            editor.putString(Settings.REQUEST_TOKEN, ServiceGenerator.consumer.getToken());
-                            editor.putString(Settings.REQUEST_TOKEN_SECRET, ServiceGenerator.consumer.getTokenSecret());
-                            editor.apply();
+                            GoodReadsAPI goodReadsAPI = ServiceGenerator.createSignedServiceXML(
+                                    GoodReadsAPI.class,
+                                    ServiceGenerator.consumer.getToken(),
+                                    ServiceGenerator.consumer.getConsumerSecret()
+                            );
+                            Call<AuthUserResponse> responseBodyCall = goodReadsAPI.getUser();
+                            responseBodyCall.enqueue(new AuthUserCallback(LoginActivity.this));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

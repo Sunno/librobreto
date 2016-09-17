@@ -96,4 +96,6 @@
     <string name="load">Load</string>
     <string name="choose_your_browser">Choose your browser</string>
     <string name="logout">Logout</string>
+    <string name="unknown_author">Unknown Author</string>
+    <string name="title_of_the_book">title of the book</string>
 </resources>

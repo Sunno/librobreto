@@ -21,6 +21,8 @@ public class ServiceGenerator {
             Settings.API_SECRET
     );
 
+    public static boolean alreadyFetchedAccessToken = false;
+
     public final static OAuthProvider provider = new DefaultOAuthProvider(
             "http://www.goodreads.com/oauth/request_token",
             "http://www.goodreads.com/oauth/access_token",
@@ -42,6 +44,12 @@ public class ServiceGenerator {
 
     public static <S> S createSignedServiceXML(Class<S> serviceClass, String oauthToken, String secret) {
         consumer.setTokenWithSecret(oauthToken, secret);
+        try {
+            provider.retrieveAccessToken(consumer, oauthToken);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new SigningInterceptor(consumer)).build();
         Retrofit retrofit = builder.client(client)

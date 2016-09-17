@@ -1,7 +1,10 @@
 package com.webandlogics.librobreto.http.entities;
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
+import java.util.List;
 
 /**
  * Created by alvaro on 25/08/16.
@@ -21,6 +24,9 @@ public class Book {
 
     @Element(name="small_image_url")
     private String smallImageURL;
+
+    @ElementList
+    private List<Author> authors;
 
     public long getId() {
         return id;
@@ -52,5 +58,13 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 }

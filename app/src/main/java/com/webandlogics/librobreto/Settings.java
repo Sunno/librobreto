@@ -21,4 +21,5 @@ public class Settings {
 
     //Preferences
     final static public String SHARED_PREFERENCES = "com.webandlogics.librobreto.preferences";
+    final public static String USER_ID = "user_id";
 }

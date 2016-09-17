@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.webandlogics.librobreto.R;
+import com.webandlogics.librobreto.http.entities.Author;
 import com.webandlogics.librobreto.http.entities.Book;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     }
 
     public void swap(List<Book> books){
-        this.books =books;
+        this.books = books;
         notifyDataSetChanged();
     }
 
@@ -54,6 +55,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Book book = books.get(position);
         holder.tvTitle.setText(book.getTitle());
+        String authors = "";
+        for (Author author: book.getAuthors()){
+            authors += ", " + author.getName();
+        }
+        holder.tvAuthor.setText(
+                authors.length() > 0 ?
+                        authors.substring(1).trim() :
+                        holder.tvAuthor.getContext().getResources().getText(R.string.unknown_author));
+
         Glide.with(context).load(book.getImageURL()).into(holder.ivThumbnail);
     }
 
@@ -67,6 +77,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
+        @BindView(R.id.tv_author) public TextView tvAuthor;
         @BindView(R.id.tv_title) public TextView tvTitle;
         @BindView(R.id.iv_thumbnail) public ImageView ivThumbnail;
         public ViewHolder(View v) {
